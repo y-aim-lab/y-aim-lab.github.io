@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>y-aim-lab — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d0d;
+      --bg-secondary: #161616;
+      --bg-card: #111111;
+      --text: #f0ece4;
+      --text-secondary: #888880;
+      --text-tertiary: #444440;
+      --border: rgba(255,255,255,0.07);
+      --border-hover: rgba(255,255,255,0.14);
+      --accent: #1D9E75;
+      --accent-dim: rgba(29,158,117,0.12);
+      --accent-text: #2ec894;
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'Noto Sans JP', sans-serif;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      border-bottom: 0.5px solid var(--border);
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    nav .inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+    .nav-logo span { color: var(--accent-text); }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a {
+      font-size: 12px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 9rem 0 5rem;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: var(--accent-text);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.1s forwards;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.2s forwards;
+    }
+    .hero-title .line2 { color: var(--text-secondary); }
+    .hero-title .dot { color: var(--accent-text); }
+    .hero-desc {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.9;
+      max-width: 500px;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.3s forwards;
+    }
+    .hero-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.4s forwards;
+    }
+    .tag {
+      font-size: 11px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 0.5px solid var(--border-hover);
+      color: var(--text-secondary);
+      background: var(--bg-secondary);
+    }
+    .hero-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.5s forwards;
+    }
+    .btn {
+      font-family: var(--font-body);
+      font-size: 13px;
+      padding: 9px 20px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+    }
+    .btn-primary:hover { background: #22b885; transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 0.5px solid var(--border-hover);
+    }
+    .btn-outline:hover { color: var(--text); border-color: rgba(255,255,255,0.25); }
+
+    /* ── SECTION ── */
+    .section { padding: 4rem 0; }
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 2rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+    .section-line {
+      flex: 1;
+      height: 0.5px;
+      background: var(--border);
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1px;
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--border);
+    }
+    .project-card {
+      background: var(--bg-card);
+      padding: 1.5rem;
+      transition: background 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .project-card:hover { background: var(--bg-secondary); }
+    .project-card.featured { background: var(--bg-secondary); }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    .card-icon {
+      width: 38px; height: 38px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .icon-teal { background: rgba(29,158,117,0.15); }
+    .icon-blue { background: rgba(55,138,221,0.15); }
+    .icon-amber { background: rgba(239,159,39,0.15); }
+    .icon-purple { background: rgba(127,119,221,0.15); }
+    .card-status {
+      font-size: 10px;
+      padding: 3px 9px;
+      border-radius: 20px;
+      letter-spacing: 0.04em;
+    }
+    .status-active { background: rgba(29,158,117,0.15); color: var(--accent-text); }
+    .status-build { background: rgba(239,159,39,0.15); color: #f0a940; }
+    .status-ready { background: rgba(55,138,221,0.15); color: #6aadee; }
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .card-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 1.25rem;
+      flex: 1;
+    }
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .card-meta { display: flex; gap: 6px; flex-wrap: wrap; }
+    .meta-tag {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.04);
+      color: var(--text-tertiary);
+      border: 0.5px solid var(--border);
+    }
+    .card-link {
+      font-size: 11px;
+      color: var(--accent-text);
+      text-decoration: none;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    .card-link:hover { opacity: 1; }
+
+    /* ── STATS ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--border);
+      margin-top: 1px;
+    }
+    .stat-card {
+      background: var(--bg-card);
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--accent-text);
+    }
+    .stat-label {
+      font-size: 11px;
+      color: var(--text-tertiary);
+      margin-top: 4px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem 0;
+      border-top: 0.5px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    footer p { font-size: 12px; color: var(--text-tertiary); }
+    footer a { font-size: 12px; color: var(--accent-text); text-decoration: none; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 600px) {
+      .hero { padding: 7rem 0 3rem; }
+      .stats-row { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <a href="#" class="nav-logo">y-aim-lab<span>.</span></a>
+    <div class="nav-links">
+      <a href="#projects">Projects</a>
+      <a href="https://github.com/y-aim-lab">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-eyebrow">Portfolio — y-aim-lab</p>
+    <h1 class="hero-title">
+      Independent<br>
+      <span class="line2">Developer</span><span class="dot">.</span>
+    </h1>
+    <p class="hero-desc">FXトレード研究・アプリ開発・ツール制作を並行して進める個人開発者。アルゴリズム取引の研究からモバイルアプリの実装まで、自分の手で作ることにこだわっています。</p>
+    <div class="hero-tags">
+      <span class="tag">FX / Algo Trading</span>
+      <span class="tag">PineScript</span>
+      <span class="tag">Python</span>
+      <span class="tag">JavaScript</span>
+      <span class="tag">Gemini API</span>
+    </div>
+    <div class="hero-links">
+      <a href="https://github.com/y-aim-lab" class="btn btn-primary">GitHub</a>
+
+      <!-- ▼▼▼ XのURLをここに貼ってください ▼▼▼ -->
+      <a href="https://x.com/YOUR_INVESTING_ACCOUNT" class="btn btn-outline">X (投資)</a>
+      <a href="https://x.com/YOUR_DEV_ACCOUNT" class="btn btn-outline">X (開発)</a>
+      <!-- ▲▲▲ ここまで ▲▲▲ -->
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section" id="projects">
+    <div class="section-header">
+      <span class="section-title">Projects</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="projects-grid">
+
+      <div class="project-card featured">
+        <div class="card-top">
+          <div class="card-icon icon-teal">📈</div>
+          <span class="card-status status-active">進行中</span>
+        </div>
+        <p class="card-title">FX バックテスト研究</p>
+        <p class="card-desc">USD/JPY 1時間足でMA9×21ゴールデンクロス＋RSIフィルターを組み合わせたシステムトレード戦略を研究。PF 1.207、DD 9.07%達成。PF 1.3を目標に改良中。</p>
+        <div class="card-footer">
+          <div class="card-meta">
+            <span class="meta-tag">PineScript v6</span>
+            <span class="meta-tag">TradingView</span>
+            <span class="meta-tag">USD/JPY</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card featured">
+        <div class="card-top">
+          <div class="card-icon icon-blue">🐍</div>
+          <span class="card-status status-active">進行中</span>
+        </div>
+        <p class="card-title">Python バックテストツール</p>
+        <p class="card-desc">backtrader + yfinance + Discord Webhook構成のシグナル通知補助ツール。Mac環境構築済みで実装フェーズへ。</p>
+        <div class="card-footer">
+          <div class="card-meta">
+            <span class="meta-tag">Python 3.11</span>
+            <span class="meta-tag">backtrader</span>
+            <span class="meta-tag">Discord</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="card-top">
+          <div class="card-icon icon-purple">🔐</div>
+          <span class="card-status status-build">実装フェーズ</span>
+        </div>
+        <p class="card-title">Secret Calculator</p>
+        <p class="card-desc">電卓に見せかけた隠しメモアプリ。「.」長押しで秘密パネルを表示。PIN認証・暗号化・タグ管理搭載。Free + Premium（¥100/月）の2段階提供。</p>
+        <div class="card-footer">
+          <div class="card-meta">
+            <span class="meta-tag">Stripe</span>
+            <span class="meta-tag">Cloudflare Workers</span>
+          </div>
+          <a href="https://y-aim-lab.github.io/hidden-memo/" class="card-link">Demo →</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="card-top">
+          <div class="card-icon icon-amber">👕</div>
+          <span class="card-status status-ready">公開中</span>
+        </div>
+        <p class="card-title">洗濯タグスキャナー</p>
+        <p class="card-desc">カメラで洗濯タグを撮影するとAIが取り扱い方法をわかりやすく説明するWebアプリ。Gemini API使用。GitHub Pagesで無料公開中。</p>
+        <div class="card-footer">
+          <div class="card-meta">
+            <span class="meta-tag">Gemini API</span>
+            <span class="meta-tag">GitHub Pages</span>
+          </div>
+          <a href="https://y-aim-lab.github.io/laundry-scanner/" class="card-link">Demo →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <p class="stat-num">1.207</p>
+        <p class="stat-label">Profit Factor</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-num">9.07%</p>
+        <p class="stat-label">Max Drawdown</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-num">4</p>
+        <p class="stat-label">Active Projects</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 y-aim-lab</p>
+    <a href="https://y-aim-lab.github.io">y-aim-lab.github.io</a>
+  </footer>
+
+</div>
+</body>
+</html>
