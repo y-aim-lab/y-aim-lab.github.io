@@ -7,329 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg: #0d0d0d;
-      --bg-secondary: #161616;
-      --bg-card: #111111;
-      --text: #f0ece4;
-      --text-secondary: #888880;
-      --text-tertiary: #444440;
-      --border: rgba(255,255,255,0.07);
-      --border-hover: rgba(255,255,255,0.14);
-      --accent: #1D9E75;
-      --accent-dim: rgba(29,158,117,0.12);
-      --accent-text: #2ec894;
-      --font-display: 'Syne', sans-serif;
-      --font-body: 'Noto Sans JP', sans-serif;
-      --radius: 12px;
-      --radius-sm: 8px;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font-body);
-      font-size: 15px;
-      line-height: 1.7;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    .container {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      border-bottom: 0.5px solid var(--border);
-      background: rgba(13,13,13,0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
-    nav .inner {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 2rem;
-      height: 52px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .nav-logo {
-      font-family: var(--font-display);
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text);
-      text-decoration: none;
-      letter-spacing: 0.02em;
-    }
-    .nav-logo span { color: var(--accent-text); }
-    .nav-links { display: flex; gap: 1.5rem; }
-    .nav-links a {
-      font-size: 12px;
-      color: var(--text-secondary);
-      text-decoration: none;
-      letter-spacing: 0.05em;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--text); }
-
-    /* ── HERO ── */
-    .hero {
-      padding: 9rem 0 5rem;
-      border-bottom: 0.5px solid var(--border);
-    }
-    .hero-eyebrow {
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      color: var(--accent-text);
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-      opacity: 0;
-      animation: fadeUp 0.6s ease 0.1s forwards;
-    }
-    .hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(3rem, 8vw, 5.5rem);
-      font-weight: 700;
-      line-height: 1.0;
-      letter-spacing: -0.02em;
-      color: var(--text);
-      margin-bottom: 1.5rem;
-      opacity: 0;
-      animation: fadeUp 0.6s ease 0.2s forwards;
-    }
-    .hero-title .line2 { color: var(--text-secondary); }
-    .hero-title .dot { color: var(--accent-text); }
-    .hero-desc {
-      font-size: 15px;
-      color: var(--text-secondary);
-      line-height: 1.9;
-      max-width: 500px;
-      margin-bottom: 2.5rem;
-      opacity: 0;
-      animation: fadeUp 0.6s ease 0.3s forwards;
-    }
-    .hero-tags {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 2.5rem;
-      opacity: 0;
-      animation: fadeUp 0.6s ease 0.4s forwards;
-    }
-    .tag {
-      font-size: 11px;
-      padding: 4px 12px;
-      border-radius: 20px;
-      border: 0.5px solid var(--border-hover);
-      color: var(--text-secondary);
-      background: var(--bg-secondary);
-    }
-    .hero-links {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp 0.6s ease 0.5s forwards;
-    }
-    .btn {
-      font-family: var(--font-body);
-      font-size: 13px;
-      padding: 9px 20px;
-      border-radius: var(--radius-sm);
-      text-decoration: none;
-      transition: all 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-    }
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-    }
-    .btn-primary:hover { background: #22b885; transform: translateY(-1px); }
-    .btn-outline {
-      background: transparent;
-      color: var(--text-secondary);
-      border: 0.5px solid var(--border-hover);
-    }
-    .btn-outline:hover { color: var(--text); border-color: rgba(255,255,255,0.25); }
-
-    /* ── SECTION ── */
-    .section { padding: 4rem 0; }
-    .section-header {
-      display: flex;
-      align-items: baseline;
-      gap: 12px;
-      margin-bottom: 2rem;
-    }
-    .section-title {
-      font-family: var(--font-display);
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-secondary);
-    }
-    .section-line {
-      flex: 1;
-      height: 0.5px;
-      background: var(--border);
-    }
-
-    /* ── PROJECTS ── */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1px;
-      border: 0.5px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      background: var(--border);
-    }
-    .project-card {
-      background: var(--bg-card);
-      padding: 1.5rem;
-      transition: background 0.2s;
-      display: flex;
-      flex-direction: column;
-    }
-    .project-card:hover { background: var(--bg-secondary); }
-    .project-card.featured { background: var(--bg-secondary); }
-    .card-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 1rem;
-    }
-    .card-icon {
-      width: 38px; height: 38px;
-      border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      flex-shrink: 0;
-    }
-    .icon-teal { background: rgba(29,158,117,0.15); }
-    .icon-blue { background: rgba(55,138,221,0.15); }
-    .icon-amber { background: rgba(239,159,39,0.15); }
-    .icon-purple { background: rgba(127,119,221,0.15); }
-    .card-status {
-      font-size: 10px;
-      padding: 3px 9px;
-      border-radius: 20px;
-      letter-spacing: 0.04em;
-    }
-    .status-active { background: rgba(29,158,117,0.15); color: var(--accent-text); }
-    .status-build { background: rgba(239,159,39,0.15); color: #f0a940; }
-    .status-ready { background: rgba(255, 255, 255, 0.15); color: #ffffff; }
-    .card-title {
-      font-family: var(--font-display);
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--text);
-      margin-bottom: 8px;
-    }
-    .card-desc {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.75;
-      margin-bottom: 1.25rem;
-      flex: 1;
-    }
-    .card-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .card-meta { display: flex; gap: 6px; flex-wrap: wrap; }
-    .meta-tag {
-      font-size: 10px;
-      padding: 2px 8px;
-      border-radius: 4px;
-      background: rgba(255,255,255,0.04);
-      color: var(--text-tertiary);
-      border: 0.5px solid var(--border);
-    }
-    .card-link {
-      font-size: 11px;
-      color: var(--accent-text);
-      text-decoration: none;
-      opacity: 0.8;
-      transition: opacity 0.2s;
-    }
-    .card-link:hover { opacity: 1; }
-
-    /* ── STATS ── */
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      border: 0.5px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      background: var(--border);
-      margin-top: 1px;
-    }
-    .stat-card {
-      background: var(--bg-card);
-      padding: 1.5rem;
-      text-align: center;
-    }
-    .stat-num {
-      font-family: var(--font-display);
-      font-size: 26px;
-      font-weight: 700;
-      color: var(--accent-text);
-    }
-    .stat-label {
-      font-size: 11px;
-      color: var(--text-tertiary);
-      margin-top: 4px;
-      letter-spacing: 0.04em;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      padding: 2rem 0;
-      border-top: 0.5px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    footer p { font-size: 12px; color: var(--text-tertiary); }
-    footer a { font-size: 12px; color: var(--accent-text); text-decoration: none; }
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── MOBILE ── */
-    @media (max-width: 600px) {
-      .hero { padding: 7rem 0 3rem; }
-      .stats-row { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -443,6 +121,22 @@
         </div>
       </div>
 
+      <div class="project-card">
+        <div class="card-top">
+          <div class="card-icon icon-purple">🔮</div>
+          <span class="card-status status-ready">準備中</span>
+        </div>
+        <p class="card-title">毎日占いWebアプリ</p>
+        <p class="card-desc">毎朝気分が上がるライフスタイル占いアプリ。数秘術と西洋占星術を組み合わせたロジックで日々の運勢を診断。</p>
+        <div class="card-footer">
+          <div class="card-meta">
+            <span class="meta-tag">React</span>
+            <span class="meta-tag">Stripe</span>
+          </div>
+          <a href="https://y-aim-lab.github.io/fortune-telling/" class="card-link">Demo →</a>
+        </div>
+      </div>
+
     </div>
 
     <!-- STATS
@@ -465,9 +159,16 @@
   </section>
 
   <!-- FOOTER -->
-  <footer>
-    <p>© 2025 y-aim-lab</p>
-    <a href="https://y-aim-lab.github.io">y-aim-lab.github.io</a>
+  <footer style="flex-direction: column; align-items: flex-start; gap: 1.5rem;">
+    <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; width: 100%;">
+      <a href="tokushoho.html" style="color: var(--text-secondary);">特定商取引法に基づく表記</a>
+      <a href="terms.html" style="color: var(--text-secondary);">利用規約</a>
+      <a href="privacy.html" style="color: var(--text-secondary);">プライバシーポリシー</a>
+    </div>
+    <div style="display: flex; justify-content: space-between; width: 100%;">
+      <p>© 2026 y-aim-lab</p>
+      <a href="https://y-aim-lab.github.io">y-aim-lab.github.io</a>
+    </div>
   </footer>
 
 </div>
